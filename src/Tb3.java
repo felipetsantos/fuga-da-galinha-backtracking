@@ -28,33 +28,34 @@ public class Tb3 {
      */
     public static void main(String[] args) throws IOException {
     	levels = new String[10];
-        Tab initTab = readInputs();
+    	for(int i=0;i<10;i++){
+    		levels[i] = "";
+    	}
+        Tab initTab = readInputs(args);
         levels[0] = initTab.getCordenates()+"\n";
         if(generateSetOfMoves(initTab,0)){
-        	System.out.print("Há pelo menos uma maneira da galinha escapar. Seguem os tabuleiros de cada movimento da Galinha:\n");
+        	System.out.print("Ha pelo menos uma maneira da galinha escapar. Seguem os tabuleiros de cada movimento da Galinha:\n");
         	System.out.print("Tabuleiro inicial: \n"+initTab.toString()+"\n");
             for(int i=0;i <10;i++){
             	System.out.print(setOfMovesThatLeadToScape[i]);
             }
+            System.out.print("Ha pelo menos uma maneira da galinha escapar.\n");
         }else{
         	
-        	System.out.print("Não há uma maneira da galinha escapar\n");
+        	System.out.print("Nao ha uma maneira da galinha escapar\n");
+            // PARA FAZER DEBUG
+            for(int i=0;i <10;i++){
+            	if(levels[i]!= null){
+            		System.out.print(levels[i]+"\n");
+            	}
+            } 
         }
         
-        // PARA FAZER DEBUG
-        /*for(int i=0;i <10;i++){
-        	if(levels[i]!= null){
-        		System.out.print(levels[i]+"\n");
-        	}
-        }  */    
+     
     }
     
-    public static Tab readInputs() throws IOException{
+    public static Tab readInputs(String[] args) throws IOException{
         
-        // TODO code application logic here
-        String cl;
-        String p[]; // str de colunas e linhas que os lobos estÃ£o
-
         Scanner sc= new Scanner(System.in); 
         Tab initTab = new Tab();
         
@@ -63,25 +64,24 @@ public class Tb3 {
         initTab.tab = new String[initTab.n][initTab.n];
         initTab.initTab();
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        cl = br.readLine();
-        String acl[] = cl.split(" ");
+        //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        sc.nextLine();
         initTab.g = new int[2];
-        initTab.g[COL] = Integer.parseInt(acl[0])-1;
-        initTab.g[LINE] = Integer.parseInt(acl[1])-1;
+        initTab.g[COL] = sc.nextInt()-1;
+        initTab.g[LINE] = sc.nextInt()-1;
         initTab.tab[initTab.g[COL]][initTab.g[LINE]] = "G ";
-        
+        sc.nextLine();
         initTab.k = Integer.parseInt(sc.next()); // NÃºmero de lobos
         
     
         initTab.l = new int[initTab.k][2]; // inicializa array que guarda os lobos
         
         for(int i=0; i< initTab.k;i++){
-        	String strWolvesPositions = br.readLine();
-            String strWolvesPositionsSplited[] = strWolvesPositions.split(" ");
-            
-            initTab.l[i][COL] = Integer.parseInt(strWolvesPositionsSplited[COL])-1;
-            initTab.l[i][LINE] = Integer.parseInt(strWolvesPositionsSplited[LINE])-1;
+        //	String strWolvesPositions = sc.nextLine();
+         //   String strWolvesPositionsSplited[] = strWolvesPositions.split(" ");
+            sc.nextLine();
+            initTab.l[i][COL] = sc.nextInt()-1;//Integer.parseInt(strWolvesPositionsSplited[COL])-1;
+            initTab.l[i][LINE] = sc.nextInt()-1;//Integer.parseInt(strWolvesPositionsSplited[LINE])-1;
             initTab.tab[initTab.l[i][COL]][initTab.l[i][LINE]] = "L"+i;
         } 
         
@@ -93,53 +93,53 @@ public class Tb3 {
     	if(t.isChickenAlive()){
     		
     		if(rounds < 10){
-    			levels[rounds] += "\t\t";
+    			levels[rounds] += "--";
     			Tab tabLeft = t.moveChickenLeft();
     			if(tabLeft != null && tabLeft.isChickenAlive()){
 	    			tabLeft.movesWolfs();
-	    			levels[rounds] += tabLeft.getCordenates()+",";
+	    			levels[rounds] += tabLeft.getCordenates()+"";
 		    		if(generateSetOfMoves(tabLeft,rounds+1)){
 		    			saveTab(tabLeft,rounds);
 		    			return true;
 		    		}
     			}else{
-    				levels[rounds] += "XXXXX,";
+    				levels[rounds] += "XXXXX";
     			}
 	    		
 	    		Tab tabRight = t.moveChickenRight();
 	    		if(tabRight != null && tabRight.isChickenAlive()){
 		    		tabRight.movesWolfs();
-		    		levels[rounds] += "\t"+tabRight.getCordenates()+",";
+		    		levels[rounds] += "_"+tabRight.getCordenates()+"";
 	    			if(generateSetOfMoves(tabRight,rounds+1)){
 		    			saveTab(tabRight,rounds);
 		    			return true;
 		    		}
 	    		}else{
-	    			levels[rounds] += "\t"+"XXXXX,";
+	    			levels[rounds] += " "+"XXXXX";
 	    		}
 	    		
 	    		Tab tabTop = t.moveChickenTop();
 	    		if(tabTop != null && tabTop.isChickenAlive()){
 	    			tabTop.movesWolfs();
-	    			levels[rounds] += "\t"+tabTop.getCordenates()+",";
+	    			levels[rounds] += "_"+tabTop.getCordenates()+"";
 		    		if(generateSetOfMoves(tabTop,rounds+1)){
 		    			saveTab(tabTop,rounds);
 		    			return true;
 		    		}
 	    		}else{
-	    			levels[rounds] += "\t"+"XXXXX,";
+	    			levels[rounds] += "_"+"XXXXX";
 	    		}
 	    		
 	    		Tab tabBottom = t.moveChickenBottom();
 	    		if(tabBottom != null && tabBottom.isChickenAlive()){
 	    			tabBottom.movesWolfs();
-	    			levels[rounds] += "\t"+tabBottom.getCordenates()+",";
+	    			levels[rounds] += "_"+tabBottom.getCordenates()+"";
 		    		if(generateSetOfMoves(tabBottom,rounds+1)){
 		    			saveTab(tabBottom,rounds);
 		    			return true;
 		    		}
 	    		}else{
-	    			levels[rounds] += "\t"+"XXXXX";
+	    			levels[rounds] += "_"+"XXXXX";
 	    		}
 	    		
 	    		return false;

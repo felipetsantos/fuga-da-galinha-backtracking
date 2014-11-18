@@ -3,10 +3,10 @@ public class Tab {
 	
 	final int COL = 0;
 	final int LINE = 1;
-	public  int n; // Número de linhas e colunas do tabuleiro
+	public  int n; // Numero de linhas e colunas do tabuleiro
 	public  int g[]; // Coluna da galinha
-	public  int k; // Número de lobos
-	public  int l[][]; // linhas que os lobos estão
+	public  int k; // Numero de lobos
+	public  int l[][]; // linhas que os lobos estao
 	public  String tab[][]; // tabuleiro
 	
   public Tab(){
@@ -70,41 +70,41 @@ public class Tab {
 		  
 	  	if(g[COL] == l[wolf_index][COL]){
 	  		
-	  		// lobo está na mesma coluna
+	  		// lobo esta na mesma coluna
 	  		if(l[wolf_index][LINE] > g[LINE]){
-	  			// lobo está acima da galinha
+	  			// lobo esta acima da galinha
 	  			l[wolf_index][LINE]--;
 	  		}else{
-	  			// lobo está abaixo da galinha
+	  			// lobo esta abaixo da galinha
 	  			l[wolf_index][LINE]++;
 	  		}
 	  		tab[l[wolf_index][COL]][l[wolf_index][LINE]] = "L"+(wolf_index+1);
 	  	}else if(g[LINE] == l[wolf_index][LINE]){
-	  		// lobo está na mesma linha
+	  		// lobo esta na mesma linha
 	  		if(l[wolf_index][COL] > g[COL]){
-	  			// lobo está acima da galinha
+	  			// lobo esta acima da galinha
 	  			l[wolf_index][COL]--;
 	  		}else{
-	  			// lobo está abaixo da galinha
+	  			// lobo esta abaixo da galinha
 	  			l[wolf_index][COL]++;
 	  		}
 	  		tab[l[wolf_index][COL]][l[wolf_index][LINE]] = "L"+(wolf_index+1);
 	  	}else{
-	  		//Lobo não está na mesma coluna e linha
+	  		//Lobo nao esta na mesma coluna e linha
 	  		
 	  		if(l[wolf_index][LINE] > g[LINE]){
-	  			// lobo está acima da galinha
+	  			// lobo esta acima da galinha
 	  			l[wolf_index][LINE]--;
 	  		}else{
-	  			// lobo está abaixo da galinha
+	  			// lobo esta abaixo da galinha
 	  			l[wolf_index][LINE]++;
 	  		}
 	  		
 	  		if(l[wolf_index][COL] > g[COL]){
-	  			// lobo está a direita
+	  			// lobo esta a direita
 	  			l[wolf_index][COL]--;
 	  		}else{
-	  			// lobo está a esquerda da galinha
+	  			// lobo esta a esquerda da galinha
 	  			l[wolf_index][COL]++;
 	  		}
 	  		tab[l[wolf_index][COL]][l[wolf_index][LINE]] = "L"+(wolf_index+1);
